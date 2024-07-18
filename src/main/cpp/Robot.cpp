@@ -4,19 +4,30 @@
 
 #include "Robot.h"
 
-void Robot::RobotInit() {}
+void Robot::RobotInit() {
+    joystick = new frc::XboxController(1);
+    driveBase = new OPRDrive();
+}
 void Robot::RobotPeriodic() {}
 
-void Robot::AutonomousInit() {}
+void Robot::AutonomousInit() {
+    driveBase->Stop();
+}
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {}
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+    driveBase->ArcadeDrive(joystick->GetLeftY(), joystick->GetLeftX());
+}
 
-void Robot::DisabledInit() {}
+void Robot::DisabledInit() {
+    driveBase->Stop();
+}
 void Robot::DisabledPeriodic() {}
 
-void Robot::TestInit() {}
+void Robot::TestInit() {
+    driveBase->Stop();
+}
 void Robot::TestPeriodic() {}
 
 void Robot::SimulationInit() {}
@@ -24,6 +35,6 @@ void Robot::SimulationPeriodic() {}
 
 #ifndef RUNNING_FRC_TESTS
 int main() {
-  return frc::StartRobot<Robot>();
+    return frc::StartRobot<Robot>();
 }
 #endif
